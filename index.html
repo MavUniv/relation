@@ -205,8 +205,139 @@
           </div>
         </div>
 
+        <!-- ==================== STEP 5: Admin Dashboard ==================== -->
+        <div class="step-content" id="step-admin" data-step-index="5">
+          <div class="step-header">
+            <span class="step-badge admin-badge">Admin Panel</span>
+            <h2>설문 취합 결과 대시보드 📈</h2>
+            <p>실시간 구글 시트 데이터를 취합한 결과입니다.</p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="admin-stats-grid">
+            <div class="stat-card">
+              <span class="stat-label">총 참여 학생</span>
+              <span class="stat-value" id="admin-total-students">0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">평균 만족도</span>
+              <span class="stat-value" id="admin-avg-rating">0.0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">실시간 연동 상태</span>
+              <span class="stat-value status-badge" id="admin-sync-status">대기</span>
+            </div>
+          </div>
+
+          <!-- Chart & Distribution -->
+          <div class="distribution-section">
+            <h3>만족도 별점 분포 (1~5점)</h3>
+            <div class="bar-chart-container">
+              <!-- 5 Stars -->
+              <div class="chart-row">
+                <span class="chart-label">🥰 5점</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar bar-5" id="bar-5" style="width: 0%"></div>
+                </div>
+                <span class="chart-count-val" id="count-5">0명 (0%)</span>
+              </div>
+              <!-- 4 Stars -->
+              <div class="chart-row">
+                <span class="chart-label">🙂 4점</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar bar-4" id="bar-4" style="width: 0%"></div>
+                </div>
+                <span class="chart-count-val" id="count-4">0명 (0%)</span>
+              </div>
+              <!-- 3 Stars -->
+              <div class="chart-row">
+                <span class="chart-label">😐 3점</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar bar-3" id="bar-3" style="width: 0%"></div>
+                </div>
+                <span class="chart-count-val" id="count-3">0명 (0%)</span>
+              </div>
+              <!-- 2 Stars -->
+              <div class="chart-row">
+                <span class="chart-label">🙁 2점</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar bar-2" id="bar-2" style="width: 0%"></div>
+                </div>
+                <span class="chart-count-val" id="count-2">0명 (0%)</span>
+              </div>
+              <!-- 1 Stars -->
+              <div class="chart-row">
+                <span class="chart-label">😢 1점</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar bar-1" id="bar-1" style="width: 0%"></div>
+                </div>
+                <span class="chart-count-val" id="count-1">0명 (0%)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Responses List Table -->
+          <div class="responses-section">
+            <h3>학생별 세부 답변 내용</h3>
+            <div class="table-scroll-wrapper">
+              <table class="responses-table">
+                <thead>
+                  <tr>
+                    <th>이름</th>
+                    <th>학번</th>
+                    <th>만족도</th>
+                    <th>의견 및 소감</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-table-body">
+                  <tr>
+                    <td colspan="4" class="table-empty">데이터를 불러오는 중입니다...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Admin Action Buttons -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" id="btn-admin-exit">
+              <i data-lucide="log-out"></i>
+              <span>대시보드 나가기</span>
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-admin-refresh">
+              <i data-lucide="refresh-cw"></i>
+              <span>새로고침</span>
+            </button>
+          </div>
+        </div>
+
       </form>
     </section>
+
+    <!-- Invisible trigger for admin auth -->
+    <button type="button" class="admin-trigger-btn" id="admin-trigger-btn" title="관리자 페이지 진입">
+      <i data-lucide="lock"></i>
+    </button>
+
+    <!-- Admin Authentication Modal Overlay -->
+    <div class="admin-auth-overlay" id="admin-auth-overlay">
+      <div class="admin-auth-card">
+        <div class="auth-header">
+          <i data-lucide="shield-alert" class="auth-icon"></i>
+          <h3>관리자 인증</h3>
+          <p>대시보드 진입을 위해 비밀번호를 입력해 주세요.</p>
+        </div>
+        <div class="input-group">
+          <input type="password" id="admin-password" placeholder="비밀번호 입력 (기본: admin1234)" autocomplete="off">
+          <span class="error-msg" id="auth-error">비밀번호가 올바르지 않습니다.</span>
+        </div>
+        <div class="auth-btn-group">
+          <button type="button" class="btn-auth-cancel" id="btn-auth-cancel">취소</button>
+          <button type="button" class="btn-auth-submit" id="btn-auth-submit">확인</button>
+        </div>
+      </div>
+    </div>
+
   </main>
   
 </body>
