@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>강의 만족도 설문조사 | Survey</title>
+  
+  <!-- Google Fonts: Outfit (English numbers/titles), Noto Sans KR (Korean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons (CDN) for modern icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Style Link -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Script Link (defer for DOM availability) -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <!-- Background Animated Glows -->
+  <div class="aurora-bg">
+    <div class="glow-sphere glow-1"></div>
+    <div class="glow-sphere glow-2"></div>
+    <div class="glow-sphere glow-3"></div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main Wrapper -->
+  <main class="app-container">
+    
+    <!-- Glassmorphic Survey Card -->
+    <section class="survey-card" id="survey-card">
+      
+      <!-- Progress Bar Tracker -->
+      <div class="progress-container">
+        <div class="progress-bar-bg">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-steps">
+          <div class="step-indicator active" data-step="1">1</div>
+          <div class="step-line"></div>
+          <div class="step-indicator" data-step="2">2</div>
+          <div class="step-line"></div>
+          <div class="step-indicator" data-step="3">3</div>
+        </div>
+      </div>
+
+      <!-- Form Wrapper -->
+      <form id="survey-form" onsubmit="event.preventDefault();">
+        
+        <!-- ==================== STEP 1: Student Information ==================== -->
+        <div class="step-content active" id="step-1" data-step-index="1">
+          <div class="step-header">
+            <span class="step-badge">Step 01</span>
+            <h2>반갑습니다! 👋</h2>
+            <p>설문을 시작하기 전에 학생 정보를 알려주세요.</p>
+          </div>
+          
+          <div class="input-group">
+            <label for="student-name">이름 <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="student-name" placeholder="이름을 입력해 주세요" autocomplete="off" required>
+            </div>
+            <span class="error-msg" id="name-error">이름을 입력해 주세요.</span>
+          </div>
+
+          <div class="input-group">
+            <label for="student-id">학번 <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i data-lucide="hash" class="input-icon"></i>
+              <input type="text" id="student-id" placeholder="학번을 입력해 주세요 (예: 20261234)" autocomplete="off" required>
+            </div>
+            <span class="error-msg" id="id-error">올바른 학번을 입력해 주세요.</span>
+          </div>
+
+          <div class="btn-group single-btn">
+            <button type="button" class="btn btn-primary" id="btn-next-1">
+              <span>다음 단계로</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== STEP 2: Satisfaction Rating ==================== -->
+        <div class="step-content" id="step-2" data-step-index="2">
+          <div class="step-header">
+            <span class="step-badge">Step 02</span>
+            <h2>강의 만족도 선택 📊</h2>
+            <p>이번 강의는 얼마나 만족스러우셨나요?</p>
+          </div>
+
+          <div class="rating-container">
+            <!-- Rating Options (1 to 5) -->
+            <button type="button" class="rating-card" data-rating="1">
+              <div class="emoji">😢</div>
+              <span class="score">1</span>
+              <span class="label">매우 불만족</span>
+            </button>
+            <button type="button" class="rating-card" data-rating="2">
+              <div class="emoji">🙁</div>
+              <span class="score">2</span>
+              <span class="label">불만족</span>
+            </button>
+            <button type="button" class="rating-card" data-rating="3">
+              <div class="emoji">😐</div>
+              <span class="score">3</span>
+              <span class="label">보통</span>
+            </button>
+            <button type="button" class="rating-card" data-rating="4">
+              <div class="emoji">🙂</div>
+              <span class="score">4</span>
+              <span class="label">만족</span>
+            </button>
+            <button type="button" class="rating-card" data-rating="5">
+              <div class="emoji">🥰</div>
+              <span class="score">5</span>
+              <span class="label">매우 만족</span>
+            </button>
+          </div>
+          <span class="error-msg center-error" id="rating-error">만족도를 선택해 주세요.</span>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" id="btn-prev-2">
+              <i data-lucide="arrow-left"></i>
+              <span>이전</span>
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-next-2">
+              <span>다음 단계로</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== STEP 3: Feedback (Good Points) ==================== -->
+        <div class="step-content" id="step-3" data-step-index="3">
+          <div class="step-header">
+            <span class="step-badge">Step 03</span>
+            <h2>좋았던 점 입력 📝</h2>
+            <p>강의 중 특별히 유익했거나 좋았던 점을 알려주세요.</p>
+          </div>
+
+          <div class="input-group">
+            <label for="feedback-text">의견 및 소감 <span class="required">*</span></label>
+            <div class="textarea-wrapper">
+              <textarea id="feedback-text" rows="5" placeholder="수업 내용, 교수님의 강의 방식 등 좋았던 점을 자유롭게 입력해 주세요." maxlength="300" required></textarea>
+              <div class="textarea-footer">
+                <span class="error-msg" id="feedback-error">최소 10자 이상 입력해 주세요.</span>
+                <span class="char-count"><span id="current-char">0</span>/300</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" id="btn-prev-3">
+              <i data-lucide="arrow-left"></i>
+              <span>이전</span>
+            </button>
+            <button type="button" class="btn btn-submit" id="btn-submit">
+              <span>설문 제출하기</span>
+              <i data-lucide="send"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== STEP 4: Thank You (Success) ==================== -->
+        <div class="step-content" id="step-4" data-step-index="4">
+          <div class="success-screen">
+            <div class="success-icon-wrapper">
+              <div class="success-pulse"></div>
+              <div class="success-icon">
+                <i data-lucide="check"></i>
+              </div>
+            </div>
+            
+            <h2 class="thank-you-title">제출 완료! 🎉</h2>
+            <p class="thank-you-subtitle">강의 만족도 설문에 참여해 주셔서 진심으로 감사합니다.</p>
+            
+            <div class="summary-receipt">
+              <h3>제출 정보 요약</h3>
+              <div class="receipt-row">
+                <span class="receipt-label">학생 이름</span>
+                <span class="receipt-val" id="summary-name">-</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">학번</span>
+                <span class="receipt-val" id="summary-id">-</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">강의 만족도</span>
+                <span class="receipt-val rating-val" id="summary-rating">-</span>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-reset" id="btn-reset">
+              <i data-lucide="rotate-ccw"></i>
+              <span>새로운 설문 작성</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </section>
+  </main>
+  
+</body>
+</html>
