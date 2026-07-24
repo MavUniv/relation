@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 구글 Apps Script 배포 후 발급받은 웹앱 URL을 아래에 넣어주세요.
   // URL이 비어있거나 기본값이면 데모 데이터가 작동합니다.
-  const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzpYihI3XOgbM7KTCI7Xi1ziuDCQuoEmYEk6dysbxM6AWWp9wWICrTJF3SQrz9InJJ/exec';
 
   // --- STATE ---
   let currentStep = 1;
